@@ -1,0 +1,180 @@
+import React, { use, useEffect, useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import Input from './Input';
+import { authservice } from '../config/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import {  logout, removegithublogin, setgithublogin, setgooglelogin, userlogin,removegooglelogin, setoAuth } from '../store/authslice';
+import { replace, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { oAuthservice } from '../config/Oauth.config';
+import gitlogo from "../assets/githubcat.svg"
+import googlelogo from "../assets/google.svg"
+import { showerr,hideError } from '../store/errorslice.js';
+function Login() {
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
+  const [err,seterror]=useState("");
+  const {register,handleSubmit}=useForm();
+  const githubloginn=useSelector(state=>state.auth.githublogin)
+
+  
+  const submit=async(data)=>{
+    // console.log(1);
+    // console.log(data)
+   try{
+    console.log(data);
+    const obj={
+      email:data.email,
+      password:data.password
+    }
+    console.log(obj);
+    
+     
+     const session= await authservice.login(obj)
+    data.email="",
+    data.password=""
+console.log(8);
+
+    if(session){
+      const user=await authservice.getAccount();
+
+      if(user){
+        dispatch(userlogin(user));
+        navigate("/",{replace:true});
+      }
+    }
+   }
+   catch(err){
+      console.log(err);
+      dispatch(removegithublogin())
+      dispatch(removegooglelogin())
+      
+      dispatch(showerr(err.message))
+      return
+   }
+    
+   
+  }
+  useEffect(()=>{
+    
+  },[])
+  const googleLogin=async()=>{
+       try {
+        dispatch(setgooglelogin())
+        dispatch(setoAuth("google"))
+
+              const res=oAuthservice.googlelogin()
+             
+       
+       
+             
+           } catch (error) {
+              dispatch(logout())
+           }
+  }
+  const gitlogin=async()=>{
+     try {
+        dispatch(setgithublogin())
+        dispatch(setoAuth("github"))
+        // console.log(githubloginn);
+        
+         const res= oAuthservice.githublogin();
+          
+          
+        } catch (error) {
+          
+        }
+  }
+  // const ref=useRef();
+  return (
+  <div className=" flex items-center justify-center  px-4 flex-col">
+    
+    <form 
+      autoComplete="off"
+
+      onSubmit={handleSubmit(submit)}
+      className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg space-y-6"
+    >
+      
+      <div className="text-center space-y-2">
+        <h1 className="text-2xl font-bold text-gray-800">
+          Welcome Back 👋
+        </h1>
+        <p className="text-sm text-gray-500">
+          Don’t have an account?
+        </p>
+        <Link 
+          to="/SignUp"
+          className="text-blue-600 font-medium hover:underline"
+        >
+          Sign Up
+        </Link>
+      </div>
+
+      <Input
+        type='text'
+        autoComplete="off"
+        placeholder="Enter email"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg 
+                   focus:outline-none focus:ring-2 focus:ring-blue-500 
+                   transition duration-200"
+        {...register("email",{
+          required:true,
+          value:""
+        })}
+      />
+
+      <Input
+        type='password'
+        placeholder="Enter password"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg 
+                   focus:outline-none focus:ring-2 focus:ring-blue-500 
+                   transition duration-200"
+        {...register("password",{
+          required:true
+        })}
+      />
+
+      <button 
+        type='submit'
+        className="w-full bg-blue-600 text-white py-2 rounded-lg 
+                   hover:bg-blue-700 active:scale-95 
+                   transition duration-200 font-medium"
+      >
+        Login
+      </button>
+
+    </form>
+    {/* Wrap this whole block */}
+<div className="w-full max-w-md mb-10 mt-4">
+
+  <div className="flex flex-col gap-3 w-full">
+
+    <button
+      onClick={gitlogin}
+      className="flex items-center justify-center gap-3 w-full px-6 py-3 rounded-lg border border-gray-200 hover:border-gray-400 hover:bg-gray-50 active:scale-95 transition-all duration-200 shadow-sm"
+    >
+      <img height="24px" width="24px" src={gitlogo} alt="gitlogo" />
+      <span className="text-sm font-medium text-gray-700">
+        login with GitHub
+      </span>
+    </button>
+
+    <button
+      onClick={googleLogin}
+      className="flex items-center justify-center gap-3 w-full px-6 py-3 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 active:scale-95 transition-all duration-200 shadow-sm"
+    >
+      <img height="24px" width="24px" src={googlelogo} alt="googlelogo" />
+      <span className="text-sm font-medium text-gray-700">
+        login with Google
+      </span>
+    </button>
+
+  </div>
+</div>
+    
+  </div>
+)
+}
+
+export default Login
