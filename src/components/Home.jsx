@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { logout,showCompleteForm,hideCompleteForm } from '../store/authslice';
 import parser from "html-react-parser"
 import HeroSection from './Herosection';
+import { showerr } from '../store/errorslice';
 function Home() {
   const [loader,setloader]=useState(false);
   const dispatch=useDispatch();
@@ -27,7 +28,7 @@ function Home() {
       
     })
     .catch(err=>{
-      throw err
+      dispatch(showerr("failed to load posts."))
     })
   }
   else{
@@ -48,7 +49,7 @@ posts.forEach(e=>{
           setisempty(false)
         }
       })
- },[posts])
+ },[posts,userdata])
 
  
 
@@ -63,11 +64,11 @@ posts.forEach(e=>{
      
     {posts && !isempty&& posts.map((e) => {
 
-      console.log(e.userId,userdata.$id);
+      
       if(e.userId!==userdata.$id)return
       const image = configService.getfileview(e.featuredImage);
 
-      const i=configService.getfileview(e.featuredImage);
+     
 
       return (
        <Link

@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { authservice } from '../config/auth';
 import { configService } from '../config/config';
 import parser from "html-react-parser"
+import { useDispatch } from 'react-redux';
+import { showerr } from '../store/errorslice';
 
 function BlogEdit() {
 
@@ -10,6 +12,7 @@ function BlogEdit() {
     const navigate=useNavigate();
     const [post,setpost]=useState();
     const [loader,setloader]=useState(false);
+    const dispatch=useDispatch()
 
     useEffect(()=>{
       
@@ -17,10 +20,15 @@ function BlogEdit() {
         .then(res=>{
             const a=res.rows.find((e)=>e.$id===id)
             setpost(a);
-            setloader(true)
+        })
+        .catch(()=>{
+          dispatch(showerr("failed to load post."))
+        })
+        .finally(()=>{
+          setloader(true)
         })
      
-    },[])
+    },[id])
 
     let image=null;
     
@@ -35,10 +43,10 @@ function BlogEdit() {
 
 
    function deletePost(){
-     console.log(post)
+    if(!post)return
      configService.deleteRow(post.$id)
      .then(res=>navigate("/"))
-     .catch(err=>1)
+     .catch(err=>dispatch(showerr("couldn't delete post .Try again.")))
    }
     
 
