@@ -13,12 +13,8 @@ function Signup() {
   const {register,handleSubmit}=useForm();
   const navigate=useNavigate();
   const dispatch=useDispatch();
-const firsttimelogin=useSelector(state=>state.auth.firsttimelogin)
+// const firsttimelogin=useSelector(state=>state.auth.firsttimelogin)
 
-// const location =useLocation()
-// useEffect(()=>{
-//   dispatch(changefirsttimelogin())
-// },[location.pathname])
 
 
   const submit=async(data)=>{
@@ -56,11 +52,11 @@ const firsttimelogin=useSelector(state=>state.auth.firsttimelogin)
      
     } catch (error) {
        dispatch(logout())
+       return
     }
   }
   const gitlogin=()=>{
     try {
-              // dispatch(setgithublogin())
       dispatch(setoAuth("github"))
       
       oAuthservice.githublogin();
@@ -68,6 +64,7 @@ const firsttimelogin=useSelector(state=>state.auth.firsttimelogin)
       
     } catch (error) {
        dispatch(logout())
+       return
       
     }
   }

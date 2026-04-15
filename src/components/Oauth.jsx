@@ -30,7 +30,7 @@ function Oauth() {
         
         if(user){
         
-             const res=await configService.setUserInfo({email:user.email,userId:user.$id,username:user.name,oauth:"oauth"})
+             await configService.setUserInfo({email:user.email,userId:user.$id,username:user.name,oauth:"oauth"})
           
 
           dispatch(userlogin(user))
@@ -50,7 +50,7 @@ function Oauth() {
     get()
 
   },[])
-  
+
   return (
    <>
    {err===""&&(

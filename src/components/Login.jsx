@@ -59,17 +59,18 @@ console.log(8);
   useEffect(()=>{
     
   },[])
-  
+
   const googleLogin=async()=>{
        try {
         dispatch(setgooglelogin())
         dispatch(setoAuth("google"))
 
-        const res=oAuthservice.googlelogin()
+       oAuthservice.googlelogin()
 
            }
             catch (error) {
               dispatch(logout())
+              return
            }
   }
   const gitlogin=async()=>{
@@ -79,7 +80,8 @@ console.log(8);
         
         const res= oAuthservice.githublogin();
         } catch (error) {
-          
+          dispatch(logout())
+          return
         }
   }
   return (

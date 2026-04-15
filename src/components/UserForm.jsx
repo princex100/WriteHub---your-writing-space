@@ -104,7 +104,7 @@ const userdata=useSelector(state=>state.auth.userdata)
       }
       getuser()
     },[])
-    const {watch,register,control,handleSubmit}=useForm({
+    const {register,handleSubmit}=useForm({
       defaultValues:{
           email:userr.email ||"",
           phone:userr.phone||"",

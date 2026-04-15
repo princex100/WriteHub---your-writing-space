@@ -32,7 +32,7 @@ function Footer() {
               { to: "/", label: "All Posts" },
               { to: "AddPost",  label: "Write Blog" },
             ].map(({ to, label }) => (
-              <li key={to}>
+              <li key={label}>
                 <Link
                   to={to}
                   className="transition-all duration-200"

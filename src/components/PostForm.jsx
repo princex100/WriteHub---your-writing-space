@@ -4,17 +4,18 @@ import { useRef } from "react";
 import Input from "./Input";
 import RTE from "./RTE";
 import { configService } from "../config/config";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from 
 "react-router-dom";
 import parser from "html-react-parser"
 import Toaster from "./Toaster";
+import { showerr } from "../store/errorslice";
 
 export default function PostForm() {
   const [toaster,settoaster]=useState(false)
   const [error,seterror]=useState("")
   const response=useLocation();
- 
+ const dispatch=useDispatch()
  const {register,control,handleSubmit,getValues,setValue,watch,formState:{errors,submitCount},}=useForm({
  
       defaultValues:{
@@ -99,7 +100,7 @@ export default function PostForm() {
         } catch (error) {
             // console.log(10);
 
-          showErr(error.message,"error")
+          dispatch(showerr("all fields are required!"))
           return
             // console.log("Error:", error);
         }
@@ -128,54 +129,53 @@ export default function PostForm() {
            catch(err){
             // console.log(11);
             
-                       showErr(err.message,"error")
-
+                      dispatch(showerr("all fields are required!"))
             return
            }
       }
   }
-  const checkErrors=()=>{
-    if(Object.keys(errors).length!==0){
-      setshowerr(true)
-    }
-  }
-const showformError=(err)=>{
-  seterror(err)
-  settoaster(true)
-}
+  // const checkErrors=()=>{
+  //   if(Object.keys(errors).length!==0){
+  //     setshowerr(true)
+  //   }
+  // }
+// const showformError=(err)=>{
+//   seterror(err)
+//   settoaster(true)
+// }
   const ref=useRef();
- useEffect(()=>{
-  // console.log(errors);
+//  useEffect(()=>{
+//   // console.log(errors);
   
-  if(Object.keys(errors).length!==0){
-    console.log(errors);
+//   if(Object.keys(errors).length!==0){
+//     console.log(errors);
     
-    for (const key in errors) {
-      // if (!errors.hasOwn(errors, key)) continue;
-      if(errors["title"]){
-    showErr(errors["title"]["message"])
+//     for (const key in errors) {
+//       // if (!errors.hasOwn(errors, key)) continue;
+//       if(errors["title"]){
+//     showErr(errors["title"]["message"])
            
-      }
-       else if(errors["slug"]){
-         showErr(errors["title"]["message"])
-      }
-      else  if(errors["featuredImage"]){
-         showErr(errors["featuredImage"]["message"])
-      }
-      else  if(errors["status"]){
-         showErr(errors["status"]["message"])
-      }
+//       }
+//        else if(errors["slug"]){
+//          showErr(errors["title"]["message"])
+//       }
+//       else  if(errors["featuredImage"]){
+//          showErr(errors["featuredImage"]["message"])
+//       }
+//       else  if(errors["status"]){
+//          showErr(errors["status"]["message"])
+//       }
        
      
 
-      break;
+//       break;
       
       
-    }
-    // console.log(errors.title.message);
+//     }
+//     // console.log(errors.title.message);
     
-  }
- },[submitCount])
+//   }
+//  },[submitCount])
    
   return (
     <>
@@ -187,7 +187,7 @@ const showformError=(err)=>{
     background: "linear-gradient(135deg, #f0eef6 0%, #fde8d8 25%, #f9c8d4 50%, #f0a0c0 75%, #d4609a 100%)",
   }}
     >
-    {error&&toaster&& (<Toaster message={error} type="error"/>)}
+    {/* {error&&toaster&& (<Toaster message={error} type="error"/>)} */}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
@@ -244,7 +244,7 @@ const showformError=(err)=>{
 
 <div className=" p-4 rounded-lg shadow-sm">
   <button
-  onSubmit={checkErrors}
+  // onSubmit={checkErrors}
     type="submit"
     className="w-full bg-linear-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 rounded-lg shadow-md hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
   >
