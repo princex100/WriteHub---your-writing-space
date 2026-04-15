@@ -1,16 +1,143 @@
-# React + Vite
+📝 DevBlog – Full Stack Blogging Platform
+📌 Introduction
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+DevBlog is a modern full-stack blogging platform that allows users to create, edit, delete, and manage blog posts with a clean UI and secure authentication system. It supports OAuth (Google & GitHub), rich text editing, image uploads, and user profile management.
 
-Currently, two official plugins are available:
+The project is built using React, Redux, and Appwrite-like backend services (via authservice, configService, and oAuthservice).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+🚀 Features
+🔐 Authentication
+Email/Password login & signup
+OAuth login (Google & GitHub)
+Secure session handling
+✍️ Blogging
+Create, edit, delete posts
+Rich text editor (TinyMCE)
+Featured image upload
+👤 User Profile
+Avatar upload & update
+Editable profile info (bio, age, gender, etc.)
+🎨 UI/UX
+Glassmorphism design
+Responsive layout
+Animated hero section
+⚙️ State Management
+Redux for auth & error handling
+⚙️ Installation
+# Clone the repository
+git clone https://github.com/your-username/devblog.git
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Navigate into the project
+cd devblog
 
-## Expanding the ESLint configuration
+# Install dependencies
+npm install
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Start development server
+npm run dev
+▶️ Usage
+Sign up or login
+Create a new blog post
+Edit or delete posts anytime
+Update your profile and avatar
+Explore your personal dashboard
+🏗️ Project Structure
+src/
+│
+├── components/
+│   ├── BlogEdit.jsx
+│   ├── Button.jsx
+│   ├── Error.jsx
+│   ├── Footer.jsx
+│   ├── Header.jsx
+│   ├── HeroSection.jsx
+│   ├── Home.jsx
+│   ├── Input.jsx
+│   ├── Login.jsx
+│   ├── LogoutBtn.jsx
+│   ├── Oauth.jsx
+│   ├── PostForm.jsx
+│   ├── Profile.jsx
+│   ├── RTE.jsx
+│   ├── Signup.jsx
+│   ├── Toaster.jsx
+│   └── UserForm.jsx
+│
+├── config/
+├── store/
+└── assets/
+📦 Dependencies
+React
+React Router DOM
+Redux Toolkit
+React Hook Form
+TinyMCE Editor
+html-react-parser
+🔧 Configuration
+Backend Services
+
+Make sure to configure:
+
+authservice → authentication APIs
+configService → database & storage
+oAuthservice → OAuth providers
+
+These are used extensively across the app for:
+
+Login/signup
+Post CRUD operations
+Profile management
+🧩 Components Overview
+🏠 Home
+Displays posts for logged-in users
+Shows login prompt if unauthenticated
+✍️ PostForm
+Handles both create & edit modes
+Uses React Hook Form + TinyMCE
+📄 BlogEdit
+Displays single blog post
+Edit & delete actions
+🔐 Login / Signup
+Email/password + OAuth authentication
+👤 Profile
+User details + avatar upload
+🧭 Header & Footer
+Navigation and branding
+💡 Examples
+Create a Post
+await configService.createRow({
+  title,
+  slug,
+  content,
+  featuredImage,
+  userId
+});
+Login User
+const session = await authservice.login({
+  email,
+  password
+});
+🛠️ Troubleshooting
+❌ Post not loading
+Check configService.listRows() API
+Ensure user is authenticated
+❌ OAuth not working
+Verify redirect URL
+Ensure userId and secret are present
+❌ Image upload fails
+Check file permissions
+Validate backend storage config
+👥 Contributors
+Your Name (Developer)
+📄 License
+
+This project is licensed under the MIT License.
+
+🔥 Final Notes
+
+This is a production-ready blogging platform UI with:
+
+Clean architecture
+Scalable components
+Real-world authentication flows
