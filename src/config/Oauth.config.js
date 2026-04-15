@@ -17,7 +17,7 @@ class OauthService{
           this.account.createOAuth2Token({
   provider: OAuthProvider.Google,
   success: 'https://write-hub-your-writing-space.vercel.app/oauth',
-  failure: 'https://your-project-name.vercel.app/',
+  failure: 'https://write-hub-your-writing-space.vercel.app/',
 })
        return true
     } catch (error) {
@@ -30,7 +30,7 @@ class OauthService{
        this.account.createOAuth2Token({
   provider: OAuthProvider.Github,
   success: 'https://write-hub-your-writing-space.vercel.app/oauth',
-  failure: 'https://your-project-name.vercel.app/',
+  failure: 'https://write-hub-your-writing-space.vercel.app/',
 })
        return true
 
