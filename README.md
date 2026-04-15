@@ -120,7 +120,38 @@ const session = await authservice.login({
 ```
 
 ---
+⚡ Backend – Appwrite (BaaS)
 
+This project uses Appwrite as a Backend-as-a-Service (BaaS) to manage authentication, database operations, and file storage without building a custom backend.
+
+🚀 Overview
+
+Appwrite provides:
+
+🔐 Secure authentication
+🗄️ Database for storing blog data
+🖼️ File storage for images
+🌐 Easy API integration with frontend
+🔐 Authentication
+Email/password login & signup
+OAuth login (Google & GitHub)
+Session handling and user management
+🗄️ Database
+Stores blog posts and user data
+Supports full CRUD operations:
+Create post
+Read posts
+Update post
+Delete post
+🖼️ Storage
+Upload and manage:
+Featured images for posts
+User profile avatars
+Generate preview URLs for displaying images
+🧩 Service Architecture
+authservice → Handles authentication
+configService → Database & storage operations
+oAuthservice → OAuth login handling
 ## 🛠️ Troubleshooting
 
 * ❌ Posts not loading → check API & auth
