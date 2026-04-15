@@ -14,12 +14,11 @@ class OauthService{
 
   googlelogin=()=>{
     try {
-         this.account.createOAuth2Token({
-        provider: OAuthProvider.Google,
-        success: 'http://localhost:5173/oauth', // redirect here on success
-        failure: 'http://localhost:5173/', 
-        
-       })
+          this.account.createOAuth2Token({
+  provider: OAuthProvider.Google,
+  success: 'https://write-hub-your-writing-space.vercel.app/oauth',
+  failure: 'https://your-project-name.vercel.app/',
+})
        return true
     } catch (error) {
        throw new Error("google login failed.Try again.")
@@ -29,11 +28,10 @@ class OauthService{
      try {
        
        this.account.createOAuth2Token({
-        provider: OAuthProvider.Github,
-        success: 'http://localhost:5173/oauth', // redirect here on success
-        failure: 'http://localhost:5173/', 
-        
-       })
+  provider: OAuthProvider.Github,
+  success: 'https://write-hub-your-writing-space.vercel.app/oauth',
+  failure: 'https://your-project-name.vercel.app/',
+})
        return true
 
     } catch (error) {
