@@ -5,7 +5,18 @@ DevBlog is a modern full-stack blogging platform that allows users to create, ed
 
 The project is built using React, Redux, and Appwrite-like backend services (via authservice, configService, and oAuthservice).
 
-
+📚 Table of Contents
+Features
+Installation
+Usage
+Project Structure
+Dependencies
+Configuration
+Components Overview
+Examples
+Troubleshooting
+Contributors
+License
 🚀 Features
 🔐 Authentication
 Email/Password login & signup
