@@ -1,135 +1,141 @@
-import {Client,Account, ID} from "appwrite"
-import { conf } from "../conf";
-import { configService } from "./config";
-import { useSelector } from "react-redux";
+// 🔹 Appwrite SDK imports
+import { Client, Account, ID } from "appwrite"
 
-class authService{
+// 🔹 Config
+import { conf } from "../conf"
+
+// 🔹 Custom backend service
+import { configService } from "./config"
+
+// 🔹 Redux (not used here ⚠️)
+import { useSelector } from "react-redux"
+
+class authService {
+
+  // 🔹 Class properties
   client;
   account;
 
-  constructor(){
-    this.client=new Client()
-                     .setEndpoint(conf.apprwriteurl)
-                     .setProject(conf.projectID)
+  constructor() {
 
-    this.account=new Account(this.client);
+    // 🔹 Initialize Appwrite client
+    this.client = new Client()
+      .setEndpoint(conf.apprwriteurl)
+      .setProject(conf.projectID)
 
+    // 🔹 Initialize Account service
+    this.account = new Account(this.client);
   }
 
-  async createAccount({email,password,name,firsttimelogin}){
-    try{
-       const data=await this.account.create(
-        {
-          userId:ID.unique(),
-          email:email,
-          password:password,
-          name:name
-        }
-       );
-       if(data){
-        console.log("in login");
-        console.log(firsttimelogin);
-        
-       const a=await this.login({email,password,firsttimelogin})
-       console.log("after login");
-       
+  // 🔹 Create new account + auto login
+  async createAccount({ email, password, name, firsttimelogin }) {
+    try {
+
+      // 🔹 Create user in Appwrite
+      const data = await this.account.create({
+        userId: ID.unique(),
+        email: email,
+        password: password,
+        name: name
+      });
+
+      if (data) {
+
+      
+
+        // 🔹 Auto login after signup
+        const a = await this.login({ email, password, firsttimelogin })
+
+
         return data;
-       }
+      }
 
     }
-    catch(err){
+    catch (err) {
+      // 🔹 Re-throw error to caller
       throw err;
     }
   }
-  
-  async login({email,password,firsttimelogin}){
-      //  console.log("after login");
 
-    try{
-     
-        console.log(firsttimelogin);
-      
-     if(firsttimelogin===false){
-          const session=await this.account.createEmailPasswordSession(
-        {
-          email:email,
-          password:password
-        }
+  // 🔹 Login function (handles both normal + special cases)
+  async login({ email, password, firsttimelogin }) {
 
-      )
-console.log(session);
+    try {
 
-      return session;
-     }
+    
+
+      // 🔹 Case: first time login = false → direct login
+      if (firsttimelogin === false) {
+
+        const session = await this.account.createEmailPasswordSession({
+          email: email,
+          password: password
+        })
 
 
-        
-const userdetails= await configService.getUserInfobyEmail(email)
-console.log(userdetails);
-
-      if(userdetails.total===0){
-         throw new Error("signUp first.")
+        return session;
       }
-        
 
-        // const user=await configService.getUserInfobyEmail(email)
-        // console.log(user);
-        
-       console.log(userdetails);
-       
-        if(userdetails.rows[0].oauth==="oauth"){
-            throw new Error("this aacount was created using google or github.Try again.")
-            
-        }
-        
+      // 🔹 Fetch user details from DB
+      const userdetails = await configService.getUserInfobyEmail(email)
+
+    
+      // 🔹 If user not found
+      if (userdetails.total === 0) {
+        throw new Error("signUp first.")
+      }
+
+     
+
+      // 🔹 Check if account was created via OAuth
+      if (userdetails.rows[0].oauth === "oauth") {
+        throw new Error("this aacount was created using google or github.Try again.")
+      }
+
+      // 🔹 Normal login
+      const session = await this.account.createEmailPasswordSession({
+        email: email,
+        password: password
+      })
+
       
-      const session=await this.account.createEmailPasswordSession(
-        {
-          email:email,
-          password:password
-        }
-
-      )
-console.log(session);
 
       return session;
+
     }
-    catch(err){
+    catch (err) {
+
       throw new Error("signup");
     }
-    
   }
 
-  async logout(){
-    try{
-      const res=await this.account.deleteSessions();
+  // 🔹 Logout user (delete all sessions)
+  async logout() {
+    try {
+      const res = await this.account.deleteSessions();
       return res;
     }
-    catch(err){
-      return err;
+    catch (err) {
+
+      throw new Error(err.message)
     }
   }
-  async getAccount(){
-    try{
+
+  // 🔹 Get current logged-in user
+  async getAccount() {
+    try {
       return await this.account.get();
     }
-    catch(err){
+    catch (err) {
+
+      // 🔹 Propagate error
       throw err;
     }
   }
 
-  // async getuserAuthmethod(){
-  //   try {
-  //      await this.account.l
-  //   } catch (error) {
-      
-  //   }
-  // }
-
   
-
 }
 
-
-const authservice=new authService();
-export {authservice};
+// 🔹 Export singleton instance
+const authservice = new authService();
+export { authservice };

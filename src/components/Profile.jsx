@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState ,useRef} from 'react'
+import React, {  useEffect, useState ,useRef} from 'react'
 import { oAuthservice } from '../config/Oauth.config.js'
 import { useDispatch, useSelector } from 'react-redux'
 import LogoutBtn from './LogoutBtn.jsx'
@@ -9,8 +9,7 @@ import { authservice } from '../config/auth.js'
 import { useLocation } from 'react-router-dom'
 function Profile() {
   
-    
-    //  const [userdata,setuserdata]=useSelector(state=>state.auth.userdata)
+   
 const [username,setusername]=useState("")
 
 const userdata=useSelector(state=>state.auth.userdata)
@@ -21,11 +20,9 @@ const [loader,setloader]=useState(false)
 const [avatar,setavatar]=useState(false)
 const [image,setimage]=useState("")
 const [initial,setinitial]=useState(false)
-// const [avt,setavt]=useState(false)
 const githublogin=useSelector(state=>state.auth.githublogin)
 const googleLogin=useSelector(state=>state.auth.googleLogin)
 const avt=useSelector(state=>state.auth.avt)
-console.log(avt,"avt");
 
 const renderCount = useRef(0);
      const dispatch=useDispatch()
@@ -75,20 +72,18 @@ const renderCount = useRef(0);
     //  showimage()
 const handleImageChange=async(e)=>{
 setloader(true)
-console.log("setting avt");
 
    dispatch(setavt())
 
-   const image=e.target.files[0]
+   const image = e.target.files?.[0]
+if(!image) return
    
 
   try {
    const url= await configService.getAvatarUrl(userdata.$id)
    if(url.rows.length!==0){
-    console.log(url.rows[0].avatar);
     
-    // await configService.deleteFile(url.rows[0].avatar)
-    console.log(userdata);
+  
     
      const avatarUrl=await configService.uploadFile(image)
      await configService.updateAvatar(url.rows[0].$id,avatarUrl.$id)
@@ -132,7 +127,6 @@ useEffect(()=>{
         dispatch(removegithublogin())
         dispatch(removegooglelogin())
       const userr=await configService.getUserInfo(userdata.$id)
-      console.log(userr);
       
        
         setuser(userr.rows[0]);
@@ -152,42 +146,32 @@ useEffect(()=>{
 
 useEffect(()=>{
 const getavatar=async(id)=>{
-    console.log(id)
     
 try {
-// if(avt===false){
-//   console.log(avt);
-  
-//       console.log("in !avt");
-// setinitial(true)
-//   return false
-// }
+
 setinitial(false)
    const url= await configService.getAvatarUrl(id)
-   console.log(url.rows.length);
    
-     const img=configService.getfileview(url.rows[0].avatar)
+    const img = url?.rows?.[0]
+  ? configService.getfileview(url.rows[0].avatar)
+  : ""
    setimage(img)
    setavatar(!avatar)
-   console.log(img);
    setinitial(false)
    return true
   } catch (error) {
     setinitial(true)
-    console.log(error)
     return false
   }
   }
     
-    const res=getavatar(userdata.$id)
-    if(res===false){
-      console.log("in false res");
-      
-      setinitial(true)
-    }
-    else{
-      setinitial(false)
-    }
+    getavatar(userdata.$id).then(res => {
+  if(res === false){
+    setinitial(true)
+  } else {
+    setinitial(false)
+  }
+})
     
 
 },[location.pathname])
@@ -196,13 +180,11 @@ const showform=()=>{
 }
     
      const initials=()=>{
-  // const username=username;
 
  
-  const arr= userdata.name.split(" ")
+  const arr = userdata?.name?.split(" ") || []
  let initial="";
  arr.forEach(e=>initial=initial.concat(e.charAt(0).toUpperCase()))
- console.log("in initials");
  
  return initial
 }

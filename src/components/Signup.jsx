@@ -1,5 +1,5 @@
-import React, { useDebugValue, useEffect } from 'react'
-import Input from '../../../../Users/LENOVO/OneDrive/Desktop/react/MegaBlog/src/components/Input'
+import React from 'react'
+import Input from './Input.jsx'
 import { useForm } from 'react-hook-form'
 import { authservice } from '../config/auth';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,13 +13,12 @@ function Signup() {
   const {register,handleSubmit}=useForm();
   const navigate=useNavigate();
   const dispatch=useDispatch();
-// const firsttimelogin=useSelector(state=>state.auth.firsttimelogin)
+
 
 
 
   const submit=async(data)=>{
           try{
-              // dispatch(changefirsttimelogin())
               const account=await authservice.createAccount({
                 email:data.email,
                 password:data.password,
@@ -29,19 +28,22 @@ function Signup() {
               if(account){
                
                 const user=await authservice.getAccount();
-                console.log(user);
                 
                 if(user){
-                  console.log(1);
                   
                   await configService.setUserInfo({email:user.email,userId:user.$id,username:user.name,oauth:"none"})
                   dispatch(userlogin(user));
                   navigate("/");
                 }
               }
+              else{
+                dispatch(logout())
+                return
+              }
           }
           catch(err){
-           throw new Error("couldn't sign in. Retry.")
+            dispatch(logout())
+            return
           }
   }
   const googleLogin=()=>{

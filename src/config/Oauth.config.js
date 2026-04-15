@@ -53,7 +53,6 @@ class OauthService{
     } catch (error) {
       retries--
       if (retries === 0) {
-        console.error("no session exist!")
         return null
       }
       // wait 800ms then try again
@@ -70,14 +69,12 @@ class OauthService{
        const session=await this.account.createSession({userId,secret})
       if(session){
         const user=await this.account.get()
-        console.log(user);
         
         return user
       }
     } catch (error) {
       retries--
       if (retries === 0) {
-        console.error("no session exist!")
         return null
       }
       // wait 800ms then try again
