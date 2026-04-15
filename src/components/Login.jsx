@@ -25,7 +25,8 @@ function Login() {
     console.log(data);
     const obj={
       email:data.email,
-      password:data.password
+      password:data.password,
+      firsttimelogin:true
     }
     console.log(obj);
     
@@ -58,17 +59,16 @@ console.log(8);
   useEffect(()=>{
     
   },[])
+  
   const googleLogin=async()=>{
        try {
         dispatch(setgooglelogin())
         dispatch(setoAuth("google"))
 
-              const res=oAuthservice.googlelogin()
-             
-       
-       
-             
-           } catch (error) {
+        const res=oAuthservice.googlelogin()
+
+           }
+            catch (error) {
               dispatch(logout())
            }
   }
@@ -76,16 +76,12 @@ console.log(8);
      try {
         dispatch(setgithublogin())
         dispatch(setoAuth("github"))
-        // console.log(githubloginn);
         
-         const res= oAuthservice.githublogin();
-          
-          
+        const res= oAuthservice.githublogin();
         } catch (error) {
           
         }
   }
-  // const ref=useRef();
   return (
   <div className=" flex items-center justify-center  px-4 flex-col">
     

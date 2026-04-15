@@ -12,11 +12,10 @@ import Toaster from "./Toaster";
 
 export default function PostForm() {
   const [toaster,settoaster]=useState(false)
-  const [er,setshowerr]=useState(false)
   const [error,seterror]=useState("")
   const response=useLocation();
  
- const {register,control,handleSubmit,getValues,setValue,watch,formState:{errors,submitCount},clearErrors}=useForm({
+ const {register,control,handleSubmit,getValues,setValue,watch,formState:{errors,submitCount},}=useForm({
  
       defaultValues:{
         title:response.state?.post?.title||"",
@@ -45,7 +44,6 @@ export default function PostForm() {
   
     if(name==="title"){
     setValue("slug",slugtranform(value.title))
-
     }
    })
    return ()=>subscription.unsubscribe()
@@ -53,18 +51,18 @@ export default function PostForm() {
 
    },[watch,slugtranform])
 
-   const showErr=(message)=>{
-     seterror(message)
-    settoaster(true)
+//    const showErr=(message)=>{
+//      seterror(message)
+//     settoaster(true)
 
    
-setTimeout(() => {
-    seterror("")
-    settoaster(false)
+// setTimeout(() => {
+//     seterror("")
+//     settoaster(false)
      
      
-   }, 2000);
-   }
+//    }, 2000);
+//    }
    
 
    const navigate=useNavigate();

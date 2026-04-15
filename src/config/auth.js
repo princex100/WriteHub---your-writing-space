@@ -28,6 +28,7 @@ class authService{
        );
        if(data){
         console.log("in login");
+        console.log(firsttimelogin);
         
        const a=await this.login({email,password,firsttimelogin})
        console.log("after login");
@@ -45,39 +46,42 @@ class authService{
       //  console.log("after login");
 
     try{
-      // console.log("in try");
+     
+        console.log(firsttimelogin);
       
-        // console.log(!res)
-        // console.log(oauthmethod);
-        
-        // if(oauthmethod==="google"){
-        //     throw new Error("this aacount was created using google.Try to login using google.")
-        // }
-        // else if(oauthmethod==="github"){
-        //     throw new Error("this aacount was created using github.Try to login using github.")
+     if(firsttimelogin===false){
+          const session=await this.account.createEmailPasswordSession(
+        {
+          email:email,
+          password:password
+        }
 
-        // }
-        // console.log("before session");
-        const userdetails=null
-        if(firsttimelogin===false){
- userdetails= await configService.getUserInfobyEmail(email)
+      )
+console.log(session);
+
+      return session;
+     }
+
+
+        
+const userdetails= await configService.getUserInfobyEmail(email)
+console.log(userdetails);
+
       if(userdetails.total===0){
          throw new Error("signUp first.")
       }
-        }
+        
 
-        const user=await configService.getUserInfobyEmail(email)
-        if(user.total===0){
-          throw new Error("signUp first.")
-        }
-        if(user.rows[0].oauth==="google"){
-            throw new Error("this aacount was created using google.Try to login using google.")
+        // const user=await configService.getUserInfobyEmail(email)
+        // console.log(user);
+        
+       console.log(userdetails);
+       
+        if(userdetails.rows[0].oauth==="oauth"){
+            throw new Error("this aacount was created using google or github.Try again.")
             
         }
-        else if(user.rows[0].oauth==="github"){
-            throw new Error("this aacount was created using github.Try to login using github.")
-             
-        }
+        
       
       const session=await this.account.createEmailPasswordSession(
         {

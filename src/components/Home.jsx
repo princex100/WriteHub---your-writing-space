@@ -10,22 +10,18 @@ function Home() {
   const [loader,setloader]=useState(false);
   const dispatch=useDispatch();
   const authstatus=useSelector(state=>state.auth.authstatus);
-  // console.log(authstatus)
   const navigate=useNavigate()
   const userdata=useSelector(state=>state.auth.userdata);
   const [posts,setposts]=useState([]);
   const [showLogin,setShowLogin]=useState(false);
   const [isempty,setisempty]=useState(true)
-console.log(posts);
 
  useEffect(()=>{
-  console.log(userdata);
   
   if(authstatus){
     setShowLogin(false)
  configService.listRows()
     .then((res)=>{
-      // console.log(res.rows)
       setposts(res.rows);
       setloader(true)
       
@@ -43,22 +39,18 @@ console.log(posts);
     
  },[authstatus])
 
- console.log(authstatus);
  
 
  useEffect(()=>{
+  
 posts.forEach(e=>{
         if(e.userId===userdata.$id){
           setisempty(false)
         }
       })
  },[posts])
-console.log(isempty);
 
- function isposts(){
-  if(posts.length===0)return false;
-  return true
- }
+ 
 
    return loader?(
    <div className="min-h-screen"
@@ -173,29 +165,32 @@ console.log(isempty);
 
  {showLogin && (
     <>
-     <div className="h-100 flex items-center justify-center  px-4">
+    <div className="h-100 flex items-center justify-center px-4">
 
-      <div className="bg-white p-8 rounded-2xl shadow-lg text-center space-y-4 max-w-md w-full">
-        
-        <h1 className="text-2xl font-bold text-gray-800">
-          🔒 Login to Read Posts
-        </h1>
+  <div 
+    className="p-8 rounded-2xl text-center space-y-4 max-w-md w-full border border-white/60"
+    style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(12px)" }}
+  >
 
-        <p className="text-gray-500 text-sm">
-          You need to be logged in to access blog content.
-        </p>
+    <h1 className="text-2xl font-bold text-pink-700">
+      🔒 Login to Read Posts
+    </h1>
 
-        <Link 
-          to="/login"
-          className="inline-block mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg 
-                     hover:bg-blue-700 active:scale-95 
-                     transition duration-200"
-        >
-          Go to Login
-        </Link>
+    <p className="text-pink-400 text-sm">
+      You need to be logged in to access blog content.
+    </p>
 
-      </div>
-    </div>
+    <Link
+      to="/login"
+      className="inline-block mt-4 bg-pink-500 text-white px-6 py-2 rounded-lg
+                 hover:bg-pink-600 active:scale-95
+                 transition duration-200"
+    >
+      Go to Login
+    </Link>
+
+  </div>
+</div>
     </>
    )}
 
@@ -223,31 +218,5 @@ export default Home
 
 
 
-//    {!showLogin && isempty && (
-//   <div className="flex flex-col items-center justify-center min-h-[70vh] gap-6">
-
-//     {/* icon */}
-//     <div className="w-24 h-24 rounded-full bg-indigo-50 flex items-center justify-center text-5xl">
-//       📭
-//     </div>
-
-//     {/* text */}
-//     <div className="text-center flex flex-col gap-2">
-//       <h2 className="text-2xl font-bold text-gray-800">No posts yet</h2>
-//       <p className="text-gray-400 text-sm max-w-xs">
-//         Looks like there's nothing here. Be the first to share something!
-//       </p>
-//     </div>
-
-//     {/* button */}
-//     <button
-//       onClick={() => navigate("/AddPost")}
-//       className="mt-2 px-8 py-3 rounded-full bg-indigo-500 text-white text-sm font-semibold hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-200 active:scale-95 transition-all duration-200"
-//     >
-//       + Create First Post
-//     </button>
-
-//   </div>
-// )}
 
 

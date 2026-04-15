@@ -7,7 +7,6 @@ const features = [
   { icon: "🖊️", text: "Edit Anytime" },
   { icon: "🗑️", text: "Delete Posts" },
   { icon: "🔒", text: "Secure Auth" },
- 
   { icon: "📸", text: "Featured Images" },
 ]
 
@@ -15,10 +14,8 @@ export default function HeroSection() {
   const navigate = useNavigate()
   const authstatus = useSelector(state => state.auth.authstatus)
   
-  // State to trigger the entry animation
   const [isVisible, setIsVisible] = useState(false)
 
-  // Trigger the animation shortly after the component mounts
   useEffect(() => {
     setIsVisible(true)
   }, [])
@@ -26,7 +23,6 @@ export default function HeroSection() {
   return (
     <section className="relative w-full overflow-hidden flex flex-col items-center justify-center px-6 py-24 text-center">
 
-      {/* floating blobs */}
       <div style={{
         position: "absolute", top: "-60px", left: "-80px",
         width: "320px", height: "320px", borderRadius: "50%",
@@ -61,7 +57,6 @@ export default function HeroSection() {
           Your personal blogging space — free forever
         </div>
 
-        {/* headline */}
         <h1
           className="text-5xl sm:text-6xl font-black leading-tight mb-4 max-w-3xl"
           style={{
@@ -81,7 +76,6 @@ export default function HeroSection() {
           <br />Heard by the World.
         </h1>
 
-        {/* subheadline */}
         <p
           className="text-lg max-w-xl mx-auto mb-10 leading-relaxed"
           style={{ color: "rgba(120,30,70,0.7)" }}
@@ -91,7 +85,6 @@ export default function HeroSection() {
           <span style={{ color: "#be3872", fontWeight: 600 }}> No limits. Just you and your words.</span>
         </p>
 
-        {/* CTA buttons */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
           <button
             onClick={() => navigate(authstatus ? "/AddPost" : "/SignUp")}

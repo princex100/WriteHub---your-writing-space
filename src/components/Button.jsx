@@ -15,7 +15,7 @@ function Button({
       style={{
         background: "rgba(255, 255, 255, 0.3)",
         border: "1px solid rgba(255, 255, 255, 0.5)",
-        color: "#8b1a4a", // Deep maroon for readability on light glass
+        color: "#8b1a4a", 
         boxShadow: "0 2px 10px rgba(180, 60, 100, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.4)",
         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         backdropFilter: "blur(4px)",
@@ -26,15 +26,13 @@ function Button({
         ${className}
       `}
       onMouseEnter={e => {
-        // Warm pink gradient and maroon glow on hover
         e.currentTarget.style.background = "linear-gradient(135deg, rgba(212, 86, 138, 0.15), rgba(190, 56, 114, 0.15))"
         e.currentTarget.style.borderColor = "rgba(190, 56, 114, 0.4)"
-        e.currentTarget.style.color = "#be3872" // Bright pink-maroon
+        e.currentTarget.style.color = "#be3872" 
         e.currentTarget.style.boxShadow = "0 8px 20px rgba(190, 56, 114, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6)"
         e.currentTarget.style.transform = "translateY(-1px) scale(1.03)"
       }}
       onMouseLeave={e => {
-        // Smooth return to base state
         e.currentTarget.style.background = "rgba(255, 255, 255, 0.3)"
         e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.5)"
         e.currentTarget.style.color = "#8b1a4a"

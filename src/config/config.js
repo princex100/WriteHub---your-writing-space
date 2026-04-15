@@ -230,14 +230,14 @@ throw new Error("image not uploaded.")
          let obj={};
 
          const field=response.rows[0];
-         obj.email=field.email===""?email:""
-         obj.age=field.age===""?age:""
-         obj.bio=field.bio===""?bio:""
-         obj.gender=field.gender===""?gender:""
-         obj.username=field.username===""?username:""
-         obj.fullname=field.fullname===""?fullname:""
-         obj.phone=field.phone===""?phone:""
-         obj.oauth=field.oauth===""?oauth:""
+         obj.email=field.email===""?email:field.email
+         obj.age=field.age===""?age:field.age
+         obj.bio=field.bio===""?bio:field.bio
+         obj.gender=field.gender===""?gender:field.gender
+         obj.username=field.username===""?username:field.username
+         obj.fullname=field.fullname===""?fullname:field.fullname
+         obj.phone=field.phone===""?phone:field.phone
+         obj.oauth=field.oauth===""?oauth:field.oauth
 
          const res=await this.UserDB.updateRow({
         databaseId:conf.databaseID,

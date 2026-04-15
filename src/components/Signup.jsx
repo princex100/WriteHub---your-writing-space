@@ -1,10 +1,10 @@
-import React, { useDebugValue } from 'react'
+import React, { useDebugValue, useEffect } from 'react'
 import Input from '../../../../Users/LENOVO/OneDrive/Desktop/react/MegaBlog/src/components/Input'
 import { useForm } from 'react-hook-form'
 import { authservice } from '../config/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, setgooglelogin, setoAuth, userlogin, changefirsttimelogin} from '../store/authslice';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import gitlogo from "../assets/githubcat.svg"
 import googlelogo from "../assets/google.svg"
 import { oAuthservice } from '../config/Oauth.config.js';
@@ -15,15 +15,20 @@ function Signup() {
   const dispatch=useDispatch();
 const firsttimelogin=useSelector(state=>state.auth.firsttimelogin)
 
+// const location =useLocation()
+// useEffect(()=>{
+//   dispatch(changefirsttimelogin())
+// },[location.pathname])
+
 
   const submit=async(data)=>{
           try{
-              dispatch(changefirsttimelogin())
+              // dispatch(changefirsttimelogin())
               const account=await authservice.createAccount({
                 email:data.email,
                 password:data.password,
                 name:data.username,
-                firsttimelogin
+                firsttimelogin:false
               })
               if(account){
                
@@ -43,9 +48,9 @@ const firsttimelogin=useSelector(state=>state.auth.firsttimelogin)
            throw new Error("couldn't sign in. Retry.")
           }
   }
-  const googleLogin=async()=>{
+  const googleLogin=()=>{
     try {
-      dispatch(setgooglelogin())
+      dispatch(setoAuth("google"))
       
       oAuthservice.googlelogin()
      
@@ -53,9 +58,10 @@ const firsttimelogin=useSelector(state=>state.auth.firsttimelogin)
        dispatch(logout())
     }
   }
-  const gitlogin=async()=>{
+  const gitlogin=()=>{
     try {
-              dispatch(setgithublogin())
+              // dispatch(setgithublogin())
+      dispatch(setoAuth("github"))
       
       oAuthservice.githublogin();
      

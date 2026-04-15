@@ -7,9 +7,7 @@ import parser from "html-react-parser"
 function BlogEdit() {
 
     const {id}=useParams()
-
     const navigate=useNavigate();
-
     const [post,setpost]=useState();
     const [loader,setloader]=useState(false);
 
@@ -27,8 +25,6 @@ function BlogEdit() {
     let image=null;
     
      if(post){
-      console.log(post.featuredImage);
-      
       image=configService.getfileview(post.featuredImage)
      }
 

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setgooglelogin, userlogin } from '../store/authslice'
 import { useNavigate } from 'react-router-dom'
 import { showerr } from '../store/errorslice'
+import { configService } from '../config/config'
 
 
 function Oauth() {
@@ -13,11 +14,12 @@ function Oauth() {
   const params=new URLSearchParams(window.location.search)
   const userId=params.get("userId")
   const secret=params.get("secret")
-  // const oauth=useSelector(state=>state.auth.oauth)
+  const oauth=useSelector(state=>state.auth.oauth)
 
   if(!userId||!secret){
     // error popup
-    return console.error("userid or secret missing")
+    dispatch(showerr("userid or secret missing"))
+    return 
   }
 
   useEffect(()=>{
@@ -25,26 +27,30 @@ function Oauth() {
       try {
   
         const user=await oAuthservice.createAndGetSession({userId,secret})
+        
         if(user){
-          const auth="none";
-            if(oauth==="google")auth="google"
-           else if(oauth==="github")auth="github"
-             await configService.setUserInfo({email:user.email,userId:user.$id,username:user.name,oauth:auth})
+        
+             const res=await configService.setUserInfo({email:user.email,userId:user.$id,username:user.name,oauth:"oauth"})
           
-console.log(user);
 
           dispatch(userlogin(user))
           navigate("/")
         }
+
         else{
           navigate("/")
         }
-      } catch (error) {
-         seterr(error)
+      }
+       catch (error) {
+
+        dispatch(showerr(error.message))
+
       }
     }
     get()
+
   },[])
+  
   return (
    <>
    {err===""&&(

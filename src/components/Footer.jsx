@@ -29,9 +29,8 @@ function Footer() {
           <ul className="space-y-2 text-sm">
             {[
               { to: "/",          label: "Home" },
-              { to: "/all-posts", label: "All Posts" },
-              { to: "/add-post",  label: "Write Blog" },
-              { to: "/login",     label: "Login" },
+              { to: "/", label: "All Posts" },
+              { to: "AddPost",  label: "Write Blog" },
             ].map(({ to, label }) => (
               <li key={to}>
                 <Link
