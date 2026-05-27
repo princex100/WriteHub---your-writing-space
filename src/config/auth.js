@@ -8,7 +8,6 @@ import { conf } from "../conf"
 import { configService } from "./config"
 
 // 🔹 Redux (not used here ⚠️)
-import { useSelector } from "react-redux"
 
 class authService {
 
@@ -29,8 +28,6 @@ class authService {
 
   // 🔹 Create new account + auto login
   async createAccount({ email, password, name, firsttimelogin }) {
-    try {
-
       // 🔹 Create user in Appwrite
       const data = await this.account.create({
         userId: ID.unique(),
@@ -44,17 +41,11 @@ class authService {
       
 
         // 🔹 Auto login after signup
-        const a = await this.login({ email, password, firsttimelogin })
+        await this.login({ email, password, firsttimelogin })
 
 
         return data;
       }
-
-    }
-    catch (err) {
-      // 🔹 Re-throw error to caller
-      throw err;
-    }
   }
 
   // 🔹 Login function (handles both normal + special cases)
@@ -103,7 +94,7 @@ class authService {
       return session;
 
     }
-    catch (err) {
+    catch {
 
       throw new Error("signup");
     }
@@ -123,14 +114,7 @@ class authService {
 
   // 🔹 Get current logged-in user
   async getAccount() {
-    try {
       return await this.account.get();
-    }
-    catch (err) {
-
-      // 🔹 Propagate error
-      throw err;
-    }
   }
 
   

@@ -1,5 +1,5 @@
 // 🔹 React & Hooks
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 
 // 🔹 Form handling
 import { useForm } from 'react-hook-form'
@@ -12,7 +12,7 @@ import { authservice } from '../config/auth'
 import { oAuthservice } from '../config/Oauth.config'
 
 // 🔹 Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   logout,
   removegithublogin,
@@ -24,14 +24,14 @@ import {
 } from '../store/authslice'
 
 // 🔹 Routing
-import { replace, useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 // 🔹 Assets
 import gitlogo from "../assets/githubcat.svg"
 import googlelogo from "../assets/google.svg"
 
 // 🔹 Error handling
-import { showerr, hideError } from '../store/errorslice.js'
+import { showerr } from '../store/errorslice.js'
 
 function Login() {
 
@@ -39,14 +39,8 @@ function Login() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  // 🔹 Local state (currently unused but reserved)
-  const [err, seterror] = useState("")
-
   // 🔹 React Hook Form setup
   const { register, handleSubmit } = useForm()
-
-  // 🔹 Redux state (github login flag)
-  const githubloginn = useSelector(state => state.auth.githublogin)
 
   // 🔹 Email/Password login handler
   const submit = async (data) => {
@@ -97,7 +91,7 @@ function Login() {
       // Trigger OAuth flow
       oAuthservice.googlelogin()
     }
-    catch (error) {
+    catch {
       // Handle failure
       dispatch(showerr("google login failed.Try again."))
       dispatch(logout())
@@ -113,9 +107,9 @@ function Login() {
       dispatch(setoAuth("github"))
 
       // Trigger OAuth flow
-      const res = oAuthservice.githublogin()
+      oAuthservice.githublogin()
     }
-    catch (error) {
+    catch {
       // Handle failure
       dispatch(showerr("github login failed.Try again."))
       dispatch(logout())

@@ -8,16 +8,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import { authservice } from '../config/auth'
 
 // 🔹 Redux
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { logout } from '../store/authslice'
 
 // 🔹 Error handling
-import { showerr, hideError } from '../store/errorslice.js'
+import { showerr } from '../store/errorslice.js'
 
 function LogoutBtn() {
 
-  // 🔹 Get user data from redux (currently not used)
-  const userdata = useSelector(state => state.auth.userdata)
+
 
   // 🔹 Navigation + dispatch hooks
   const navigate = useNavigate()
@@ -34,7 +33,7 @@ function LogoutBtn() {
         dispatch(logout())
         navigate("/")
       }
-    } catch (error) {
+    } catch {
       // Handle logout failure
       dispatch(showerr("logout failed!"))
     }

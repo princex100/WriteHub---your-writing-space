@@ -20,7 +20,7 @@ class OauthService{
   failure: 'https://write-hub-your-writing-space.vercel.app/',
 })
        return true
-    } catch (error) {
+    } catch {
        throw new Error("google login failed.Try again.")
     }
   }
@@ -34,7 +34,7 @@ class OauthService{
 })
        return true
 
-    } catch (error) {
+    } catch {
        throw new Error("github login failed.Try again.")
       
     }
@@ -48,7 +48,7 @@ class OauthService{
         const user=await this.account.get()
         return user
       
-    } catch (error) {
+    } catch {
       retries--
       if (retries === 0) {
         return null
@@ -70,7 +70,7 @@ class OauthService{
         
         return user
       }
-    } catch (error) {
+    } catch {
       retries--
       if (retries === 0) {
         return null
@@ -83,12 +83,7 @@ class OauthService{
   }
 
   deletesesssions=async()=>{
-    try {
       await this.account.deleteSessions()
-      
-    } catch (error) {
-      throw error
-    }
   }
 
 }

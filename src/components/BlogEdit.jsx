@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { authservice } from '../config/auth';
 import { configService } from '../config/config';
 import parser from "html-react-parser"
 import { useDispatch } from 'react-redux';
@@ -28,7 +27,7 @@ function BlogEdit() {
           setloader(true)
         })
      
-    },[id])
+    },[id, dispatch])
 
     let image=null;
     
@@ -45,8 +44,8 @@ function BlogEdit() {
    function deletePost(){
     if(!post)return
      configService.deleteRow(post.$id)
-     .then(res=>navigate("/"))
-     .catch(err=>dispatch(showerr("couldn't delete post .Try again.")))
+     .then(()=>navigate("/"))
+     .catch(()=>dispatch(showerr("couldn't delete post .Try again.")))
    }
     
 

@@ -1,20 +1,13 @@
-import React, {  useEffect, useState ,useRef} from 'react'
-import { oAuthservice } from '../config/Oauth.config.js'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import LogoutBtn from './LogoutBtn.jsx'
-import { logout, removegithublogin, removegooglelogin, showCompleteForm, userlogin ,setavt,removeavt,removeregister,setregister} from '../store/authslice.js'
+import { removegithublogin, removegooglelogin, showCompleteForm, setavt } from '../store/authslice.js'
 import { configService } from '../config/config.js'
 import { showerr } from '../store/errorslice.js'
-import { authservice } from '../config/auth.js'
 import { useLocation } from 'react-router-dom'
 function Profile() {
   
-   
-const [username,setusername]=useState("")
-
 const userdata=useSelector(state=>state.auth.userdata)
-const registered=useSelector(state=>state.auth.register)
-const [email,setemail]=useState("")
 const [user,setuser]=useState({})
 const [loader,setloader]=useState(false)
 const [avatar,setavatar]=useState(false)
@@ -22,9 +15,6 @@ const [image,setimage]=useState("")
 const [initial,setinitial]=useState(false)
 const githublogin=useSelector(state=>state.auth.githublogin)
 const googleLogin=useSelector(state=>state.auth.googleLogin)
-const avt=useSelector(state=>state.auth.avt)
-
-const renderCount = useRef(0);
      const dispatch=useDispatch()
      
      const fields=[
@@ -64,11 +54,7 @@ const renderCount = useRef(0);
 
       }
      ]
-     const showimage=()=>{
-        const a= configService.getfileview(image)
-        return String(a)
-        
-     }
+
     //  showimage()
 const handleImageChange=async(e)=>{
 setloader(true)
@@ -106,15 +92,13 @@ setinitial(false)
  
 
 
-  } catch (error) {
+  } catch {
     setloader(false)
     dispatch(showerr("profile picture didn't upload!"))
   }
    
 }
 const location=useLocation()
-const authstatus=useSelector(state=>state.auth.authstatus)
-
 useEffect(()=>{
   const getuser=async()=>{
     try {
@@ -131,7 +115,7 @@ useEffect(()=>{
        
         setuser(userr.rows[0]);
       
-    } catch (error) {
+    } catch {
       if(!user){
         dispatch(showerr("user couldn't be fetched. Try againnnnn."))
       }
@@ -142,6 +126,7 @@ useEffect(()=>{
    getuser()
   
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 },[location.pathname])
 
 useEffect(()=>{
@@ -159,7 +144,7 @@ setinitial(false)
    setavatar(!avatar)
    setinitial(false)
    return true
-  } catch (error) {
+  } catch {
     setinitial(true)
     return false
   }
@@ -174,6 +159,7 @@ setinitial(false)
 })
     
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 },[location.pathname])
 const showform=()=>{
   dispatch(showCompleteForm())

@@ -8,10 +8,9 @@ import './App.css'
 import { Outlet } from 'react-router-dom'
 
 // 🔹 Redux actions
-import { logout, userlogin } from './store/authslice'
+import { userlogin } from './store/authslice'
 
 // 🔹 Auth service
-import { authservice } from './config/auth'
 
 // 🔹 Redux hooks
 import { useDispatch, useSelector } from 'react-redux'
@@ -42,7 +41,6 @@ function App() {
   const [loader, setloader] = useState(false)
 
   // 🔹 Auth status from redux (not used currently)
-  const authstatus = useSelector(state => state.auth.authstatus)
 
   // 🔹 Redux dispatch
   const dispatch = useDispatch()
@@ -62,7 +60,7 @@ function App() {
 
     
 
-  }, [])
+  }, [dispatch])
 
   // 🔹 Auto-hide error messages after 3 seconds
   setTimeout(() => {

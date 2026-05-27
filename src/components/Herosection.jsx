@@ -17,7 +17,8 @@ export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    setIsVisible(true)
+    const timer = setTimeout(() => setIsVisible(true), 50)
+    return () => clearTimeout(timer)
   }, [])
 
   return (

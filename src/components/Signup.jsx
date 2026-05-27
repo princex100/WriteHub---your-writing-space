@@ -2,9 +2,9 @@ import React from 'react'
 import Input from './Input.jsx'
 import { useForm } from 'react-hook-form'
 import { authservice } from '../config/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, setgooglelogin, setoAuth, userlogin, changefirsttimelogin} from '../store/authslice';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout, setoAuth, userlogin } from '../store/authslice';
+import { useNavigate } from 'react-router-dom';
 import gitlogo from "../assets/githubcat.svg"
 import googlelogo from "../assets/google.svg"
 import { oAuthservice } from '../config/Oauth.config.js';
@@ -41,7 +41,7 @@ function Signup() {
                 return
               }
           }
-          catch(err){
+          catch {
             dispatch(logout())
             return
           }
@@ -52,7 +52,7 @@ function Signup() {
       
       oAuthservice.googlelogin()
      
-    } catch (error) {
+    } catch {
        dispatch(logout())
        return
     }
@@ -64,7 +64,7 @@ function Signup() {
       oAuthservice.githublogin();
      
       
-    } catch (error) {
+    } catch {
        dispatch(logout())
        return
       

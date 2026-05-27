@@ -1,12 +1,12 @@
 // 🔹 React Hooks
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 // 🔹 OAuth service
 import { oAuthservice } from '../config/Oauth.config'
 
 // 🔹 Redux
-import { useDispatch, useSelector } from 'react-redux'
-import { setgooglelogin, userlogin } from '../store/authslice'
+import { useDispatch } from 'react-redux'
+import { userlogin } from '../store/authslice'
 
 // 🔹 Routing
 import { useNavigate } from 'react-router-dom'
@@ -28,8 +28,7 @@ function Oauth() {
   const userId = params.get("userId")
   const secret = params.get("secret")
 
-  // 🔹 OAuth type from redux (currently not used)
-  const oauth = useSelector(state => state.auth.oauth)
+
 
   // 🔹 Effect to handle OAuth login flow
   useEffect(() => {

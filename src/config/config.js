@@ -20,7 +20,6 @@ class config{
    }
 
    async createRow({slug,title,content,featuredImage,userId,status}){
-    try{
       return await this.TablesDB.createRow({
         databaseId:conf.databaseID,
         tableId:conf.collectionid,
@@ -33,14 +32,9 @@ class config{
           userId:userId
         }
       })
-    }
-    catch(err){
-      throw err;
-    }
    }
 
    async listRows(){
-    try{
       return await this.TablesDB.listRows({
         databaseId:conf.databaseID,
         tableId:conf.collectionid,
@@ -48,14 +42,9 @@ class config{
           Query.equal("status","active")
         ]
     })
-    }
-    catch(err){
-      throw err;
-    }
    }
 
    async updaterow({slug,title,content,featuredImage,status}){
-    try{
       return await this.TablesDB.updateRow( 
         conf.databaseID,
         conf.collectionid, 
@@ -67,10 +56,6 @@ class config{
           status:status,
         }
       )
-    }
-    catch(err){
-      throw err;
-    }
    }
 
    async createAvatar(id,avatar){
@@ -85,7 +70,7 @@ class config{
         }
       })
     }
-    catch(err){
+    catch {
       throw new Error("avatar couldn't be set.")
     }
    }
@@ -102,7 +87,7 @@ class config{
         }
       )
     }
-    catch(err){
+    catch {
       throw new Error("avatar couldn't be set.")
     }
    }
@@ -115,7 +100,7 @@ class config{
         rowId:slug
       })
     }
-    catch(err){
+    catch {
       throw new Error("post couldnt be deleted.")
     }
    }
@@ -129,21 +114,16 @@ class config{
         file:file
       })
     }
-    catch(err){
+    catch {
       throw new Error("image not uploaded.")
     }
    }
 
    getfilePreview(featuredImage){
-    try{
       return this.storage.getFilePreview({
         bucketId:conf.bucketID,
         fileId:featuredImage
       })
-    }
-    catch(err){
-      throw err
-    }
    }
 
    async getAvatarUrl(id){
@@ -165,7 +145,7 @@ class config{
         await new Promise(res=>setTimeout(res, 800))
       }
     }
-    catch(err){
+    catch {
       throw new Error("cant find avatar")
     }
    }
@@ -185,13 +165,12 @@ class config{
         fileId:featuredImage
       })
     }
-    catch(err){
+    catch {
       throw new Error("cant delete avatar")
     }
    }
 
    async setUserInfo({email,userId,username,fullname,age,bio,phone,gender,oauth}){
-    try{
       const response=await this.UserDB.listRows({
         databaseId:conf.databaseID,
         tableId:conf.userTableId,
@@ -222,8 +201,8 @@ class config{
          });
          return res
       }
-      else{
-         const res=await this.UserDB.createRow({
+       else{
+         await this.UserDB.createRow({
            databaseId:conf.databaseID,
            rowId:userId,
            tableId:conf.userTableId,
@@ -238,21 +217,11 @@ class config{
              oauth:oauth||""
            }
          });
-         return res
       }
-
-     
-
-    }
-    catch(err){
-      throw new Error("user info couldn't be updated.");
-    }
   }
 
   async updateuserInfo({email,userId,username,fullname,age,bio,phone,gender}){
-    try{
-
-      const res=await this.UserDB.updateRow({
+      await this.UserDB.updateRow({
         databaseId:conf.databaseID,
         tableId:conf.userTableId,
         rowId:userId,
@@ -268,16 +237,9 @@ class config{
       });
 
       return true; 
-
-    }
-    catch(err){
-      throw new Error("user info couldn't be updated.");
-    }
   }
 
   async getUserInfo(id){
-    try{
-
       return await this.UserDB.listRows({
         databaseId:conf.databaseID,
         tableId:conf.userTableId,
@@ -285,14 +247,9 @@ class config{
           Query.equal("$id",id)
         ]
       })
-    }
-    catch(err){
-      throw new Error("user info couldn't be fetched.");
-    }
   }
 
    async getUserInfobyEmail(email){
-    try{
       return await this.UserDB.listRows({
         databaseId:conf.databaseID,
         tableId:conf.userTableId,
@@ -300,20 +257,11 @@ class config{
           Query.equal("email",email)
         ]
       })
-    }
-    catch(err){
-      throw new Error("user info couldn't be fetched.");
-    }
   }
 
-  async getAccount(){
-    try{
+   async getAccount(){
       return await this.account.get(); 
-    }
-    catch(err){
-      throw err;
-    }
-  }
+   }
 
   async getUserAuthMethod(email){
     try {
@@ -331,8 +279,8 @@ class config{
       }
       return res
 
-    } catch (error) {
-      throw new Error("signUp first.") // ⚠️ original error lost
+    } catch {
+      throw new Error("signUp first.") // original error lost
     }
   }
 }

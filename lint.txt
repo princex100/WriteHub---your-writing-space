@@ -1,0 +1,196 @@
+﻿
+> blog@0.0.0 lint
+> eslint .
+
+
+C:\devv\blog\src\App.jsx
+  11:10  error    'logout' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                no-unused-vars
+  14:10  error    'authservice' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                           no-unused-vars
+  45:9   error    'authstatus' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                   no-unused-vars
+  65:6   warning  React Hook useEffect has a missing dependency: 'dispatch'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\devv\blog\src\components\BlogEdit.jsx
+   1:17  error    'useCallback' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                           no-unused-vars
+   3:10  error    'authservice' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                           no-unused-vars
+  31:7   warning  React Hook useEffect has a missing dependency: 'dispatch'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  48:12  error    'res' is defined but never used                                                                              no-unused-vars
+  49:13  error    'err' is defined but never used                                                                              no-unused-vars
+
+C:\devv\blog\src\components\Button.jsx
+  2:9  error  'useNavigate' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  6:3  error  'slug' is defined but never used                                                    no-unused-vars
+
+C:\devv\blog\src\components\Herosection.jsx
+  20:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  18 |
+  19 |   useEffect(() => {
+> 20 |     setIsVisible(true)
+     |     ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  21 |   }, [])
+  22 |
+  23 |   return (  react-hooks/set-state-in-effect
+
+C:\devv\blog\src\components\Home.jsx
+   3:10  error    'authservice' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           no-unused-vars
+   6:17  error    'showCompleteForm' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      no-unused-vars
+   6:34  error    'hideCompleteForm' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      no-unused-vars
+  23:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  21 |   
+  22 |   if(authstatus){
+> 23 |     setShowLogin(false)
+     |     ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  24 |  configService.listRows()
+  25 |     .then((res)=>{
+  26 |       setposts(res.rows);  react-hooks/set-state-in-effect
+  30:12  error    'err' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              no-unused-vars
+  41:4   warning  React Hook useEffect has a missing dependency: 'dispatch'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  react-hooks/exhaustive-deps
+
+C:\devv\blog\src\components\Login.jsx
+    2:17  error  'useEffect' is defined but never used. Allowed unused vars must match /^[A-Z_]/u              no-unused-vars
+    2:28  error  'useRef' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                 no-unused-vars
+   27:10  error  'replace' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                no-unused-vars
+   34:19  error  'hideError' is defined but never used. Allowed unused vars must match /^[A-Z_]/u              no-unused-vars
+   43:10  error  'err' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u           no-unused-vars
+   43:15  error  'seterror' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u      no-unused-vars
+   49:9   error  'githubloginn' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  100:12  error  'error' is defined but never used                                                             no-unused-vars
+  116:13  error  'res' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u           no-unused-vars
+  118:12  error  'error' is defined but never used                                                             no-unused-vars
+
+C:\devv\blog\src\components\LogoutBtn.jsx
+  15:19  error  'hideError' is defined but never used. Allowed unused vars must match /^[A-Z_]/u          no-unused-vars
+  20:9   error  'userdata' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  37:14  error  'error' is defined but never used                                                         no-unused-vars
+
+C:\devv\blog\src\components\Oauth.jsx
+   2:28  error  'useState' is defined but never used. Allowed unused vars must match /^[A-Z_]/u        no-unused-vars
+   9:10  error  'setgooglelogin' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  32:9   error  'oauth' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\devv\blog\src\components\PostForm.jsx
+    5:10  error    'get' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       no-unused-vars
+   31:10  error    'toaster' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          no-unused-vars
+   31:19  error    'settoaster' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       no-unused-vars
+   32:10  error    'error' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            no-unused-vars
+   32:17  error    'seterror' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         no-unused-vars
+   48:18  error    'errors' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           no-unused-vars
+   48:26  error    'submitCount' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      no-unused-vars
+   73:26  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+  71 |   useEffect(() => {
+  72 |
+> 73 |     const subscription = watch((value, { name }) => {
+     |                          ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  74 |
+  75 |       if (name === "title") {
+  76 |         setValue("slug", slugtranform(value.title))  react-hooks/incompatible-library
+   83:6   warning  React Hook useEffect has a missing dependency: 'setValue'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      react-hooks/exhaustive-deps
+  125:16  error    'error' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                no-unused-vars
+  158:16  error    'err' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  no-unused-vars
+
+C:\devv\blog\src\components\Profile.jsx
+    2:10   error    'oAuthservice' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                          no-unused-vars
+    5:10   error    'logout' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                no-unused-vars
+    5:74   error    'userlogin' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                             no-unused-vars
+    5:92   error    'removeavt' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                             no-unused-vars
+    5:102  error    'removeregister' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                        no-unused-vars
+    5:117  error    'setregister' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                           no-unused-vars
+    8:10   error    'authservice' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                           no-unused-vars
+   13:8    error    'username' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                     no-unused-vars
+   13:17   error    'setusername' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                  no-unused-vars
+   16:7    error    'registered' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                   no-unused-vars
+   17:8    error    'email' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                        no-unused-vars
+   17:14   error    'setemail' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                     no-unused-vars
+   25:7    error    'avt' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                          no-unused-vars
+   27:7    error    'renderCount' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                  no-unused-vars
+   67:12   error    'showimage' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                    no-unused-vars
+  109:12   error    'error' is defined but never used                                                                                                                                                                                                            no-unused-vars
+  116:7    error    'authstatus' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                   no-unused-vars
+  134:14   error    'error' is defined but never used                                                                                                                                                                                                            no-unused-vars
+  145:3    warning  React Hook useEffect has missing dependencies: 'dispatch', 'githublogin', 'googleLogin', 'user', and 'userdata'. Either include them or remove the dependency array                                                                          react-hooks/exhaustive-deps
+  162:12   error    'error' is defined but never used                                                                                                                                                                                                            no-unused-vars
+  177:3    warning  React Hook useEffect has missing dependencies: 'avatar' and 'userdata.$id'. Either include them or remove the dependency array. You can also do a functional update 'setavatar(a => ...)' if you only need 'avatar' in the 'setavatar' call  react-hooks/exhaustive-deps
+
+C:\devv\blog\src\components\RTE.jsx
+   1:17  error  'forwardRef' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+   7:16  error  Fast refresh can't handle anonymous components. Add a name to your export          react-refresh/only-export-components
+  13:33  error  'value' is defined but never used                                                  no-unused-vars
+
+C:\devv\blog\src\components\Signup.jsx
+   5:23  error  'useSelector' is defined but never used. Allowed unused vars must match /^[A-Z_]/u           no-unused-vars
+   6:18  error  'setgooglelogin' is defined but never used. Allowed unused vars must match /^[A-Z_]/u        no-unused-vars
+   6:55  error  'changefirsttimelogin' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+   7:10  error  'useLocation' is defined but never used. Allowed unused vars must match /^[A-Z_]/u           no-unused-vars
+  44:17  error  'err' is defined but never used                                                              no-unused-vars
+  55:14  error  'error' is defined but never used                                                            no-unused-vars
+  67:14  error  'error' is defined but never used                                                            no-unused-vars
+
+C:\devv\blog\src\components\UserForm.jsx
+    6:10  error    'showCompleteForm' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                          no-unused-vars
+   15:10  error    'data' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                      no-unused-vars
+   67:14  error    'error' is defined but never used                                                                                no-unused-vars
+   96:16  error    'error' is defined but never used                                                                                no-unused-vars
+  105:6   warning  React Hook useEffect has a missing dependency: 'userdata.$id'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\devv\blog\src\config\Oauth.config.js
+  23:14  error  'error' is defined but never used  no-unused-vars
+  37:14  error  'error' is defined but never used  no-unused-vars
+  51:14  error  'error' is defined but never used  no-unused-vars
+  73:14  error  'error' is defined but never used  no-unused-vars
+  86:5   error  Unnecessary try/catch wrapper      no-useless-catch
+
+C:\devv\blog\src\config\auth.js
+   11:10  error  'useSelector' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+   32:5   error  Unnecessary try/catch wrapper                                                       no-useless-catch
+   47:15  error  'a' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u   no-unused-vars
+  106:12  error  'err' is defined but never used                                                     no-unused-vars
+  126:5   error  Unnecessary try/catch wrapper                                                       no-useless-catch
+
+C:\devv\blog\src\config\config.js
+   23:5   error  Unnecessary try/catch wrapper                                                        no-useless-catch
+   43:5   error  Unnecessary try/catch wrapper                                                        no-useless-catch
+   58:5   error  Unnecessary try/catch wrapper                                                        no-useless-catch
+   88:11  error  'err' is defined but never used                                                      no-unused-vars
+  105:11  error  'err' is defined but never used                                                      no-unused-vars
+  118:11  error  'err' is defined but never used                                                      no-unused-vars
+  132:11  error  'err' is defined but never used                                                      no-unused-vars
+  138:5   error  Unnecessary try/catch wrapper                                                        no-useless-catch
+  168:11  error  'err' is defined but never used                                                      no-unused-vars
+  188:11  error  'err' is defined but never used                                                      no-unused-vars
+  247:11  error  'err' is defined but never used                                                      no-unused-vars
+  255:13  error  'res' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  273:11  error  'err' is defined but never used                                                      no-unused-vars
+  289:11  error  'err' is defined but never used                                                      no-unused-vars
+  304:11  error  'err' is defined but never used                                                      no-unused-vars
+  310:5   error  Unnecessary try/catch wrapper                                                        no-useless-catch
+  334:14  error  'error' is defined but never used                                                    no-unused-vars
+
+C:\devv\blog\src\store\authslice.js
+  26:27  error  'action' is defined but never used  no-unused-vars
+  31:37  error  'action' is defined but never used  no-unused-vars
+  34:37  error  'action' is defined but never used  no-unused-vars
+  47:35  error  'action' is defined but never used  no-unused-vars
+  74:33  error  'action' is defined but never used  no-unused-vars
+  77:41  error  'action' is defined but never used  no-unused-vars
+
+C:\devv\blog\src\store\errorslice.js
+  18:22  error  'payload' is defined but never used  no-unused-vars
+
+Γ£û 115 problems (107 errors, 8 warnings)
+

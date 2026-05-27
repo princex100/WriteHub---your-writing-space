@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { authservice } from '../config/auth';
 import { configService } from '../config/config';
 import { Link, useNavigate } from 'react-router-dom';
-import { logout,showCompleteForm,hideCompleteForm } from '../store/authslice';
+import { logout } from '../store/authslice';
 import parser from "html-react-parser"
 import HeroSection from './Herosection';
 import { showerr } from '../store/errorslice';
@@ -14,31 +13,29 @@ function Home() {
   const navigate=useNavigate()
   const userdata=useSelector(state=>state.auth.userdata);
   const [posts,setposts]=useState([]);
-  const [showLogin,setShowLogin]=useState(false);
   const [isempty,setisempty]=useState(true)
 
  useEffect(()=>{
   
   if(authstatus){
-    setShowLogin(false)
  configService.listRows()
     .then((res)=>{
       setposts(res.rows);
       setloader(true)
       
     })
-    .catch(err=>{
+    .catch(()=>{
       dispatch(showerr("failed to load posts."))
     })
   }
   else{
-    setShowLogin(true)
   dispatch(logout());
-  setloader(true)
+  const t = setTimeout(() => setloader(true), 0)
+  return () => clearTimeout(t)
   }
    
     
- },[authstatus])
+ },[authstatus, dispatch])
 
  
 
@@ -164,7 +161,7 @@ posts.forEach(e=>{
     </div>
 )}
 
- {showLogin && (
+ {!authstatus && (
     <>
     <div className="h-100 flex items-center justify-center px-4">
 

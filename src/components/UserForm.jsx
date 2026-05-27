@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 // 🔹 Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { showCompleteForm, hideCompleteForm } from '../store/authslice.js'
+import { hideCompleteForm } from '../store/authslice.js'
 
 // 🔹 Form handling
 import { useForm } from 'react-hook-form'
@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form'
 import { configService } from '../config/config.js'
 
 // 🔹 Routing
-import { data, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 // 🔹 Error handling
 import { showerr } from '../store/errorslice.js'
@@ -64,7 +64,7 @@ function UserForm() {
         navigate("profile")
       }
 
-    } catch (error) {
+    } catch {
 
       // 🔹 Error handling
       dispatch(showerr("user didn't update.Try agiain."))
@@ -93,7 +93,7 @@ function UserForm() {
         // 🔹 Store in state
         setuser(obj)
 
-      } catch (error) {
+      } catch {
 
         // ⚠️ Throwing error here can crash app
         throw new Error("user couldn't be fetched.")
@@ -102,7 +102,7 @@ function UserForm() {
 
     getuser()
 
-  }, [])
+  }, [userdata.$id])
 
   // 🔹 React Hook Form setup
   const { register, handleSubmit } = useForm({

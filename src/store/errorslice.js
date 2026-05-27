@@ -15,7 +15,7 @@ const errorslice=createSlice({
       state.error.push(action.payload),
       state.showErr=true
     },
-    hideError:(state,payload)=>{
+    hideError:(state)=>{
        state.error=[],
        state.showErr=false
     }

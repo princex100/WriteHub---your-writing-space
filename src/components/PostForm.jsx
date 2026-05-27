@@ -1,8 +1,8 @@
 // 🔹 React Hooks
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 
 // 🔹 Form handling (react-hook-form)
-import { get, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 
 // 🔹 Ref hook (for RTE)
 import { useRef } from "react"
@@ -27,9 +27,7 @@ import parser from "html-react-parser"
 
 export default function PostForm() {
 
-  // 🔹 Local state for toaster (currently not used)
-  const [toaster, settoaster] = useState(false)
-  const [error, seterror] = useState("")
+
 
   // 🔹 Get route state (used for edit mode)
   const response = useLocation()
@@ -45,7 +43,7 @@ export default function PostForm() {
     getValues,
     setValue,
     watch,
-    formState: { errors, submitCount },
+
   } = useForm({
     defaultValues: {
       title: response.state?.post?.title || "",
@@ -80,7 +78,7 @@ const ref=useRef()
     // 🔹 Cleanup subscription
     return () => subscription.unsubscribe()
 
-  }, [watch, slugtranform])
+  }, [watch, setValue])
 
   // 🔹 Navigation hook
   const navigate = useNavigate()
@@ -122,7 +120,7 @@ const ref=useRef()
           }
         }
 
-      } catch (error) {
+      } catch {
 
         // 🔹 Error handling
         dispatch(showerr("all fields are required!"))
@@ -155,7 +153,7 @@ const ref=useRef()
           }
         }
 
-      } catch (err) {
+      } catch {
 
         // 🔹 Error handling
         dispatch(showerr("all fields are required!"))

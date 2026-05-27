@@ -23,15 +23,15 @@ const authslice=createSlice({
                 state.authstatus=true;
             }
             ,
-            logout:(state,action)=>{
+            logout:(state)=>{
                 state.userdata={};
                 state.authstatus=false;
 
             },
-            showCompleteForm:(state,action)=>{
+            showCompleteForm:(state)=>{
                state.CompleteForm=true
             },
-            hideCompleteForm:(state,action)=>{
+            hideCompleteForm:(state)=>{
                state.CompleteForm=false
 
             },
@@ -44,7 +44,7 @@ const authslice=createSlice({
                 state.githubLogin=false
                   
             },
-            setgooglelogin:(state,action)=>{
+            setgooglelogin:(state)=>{
                   // console.log(action.payload);
                   
                 state.googleLogin=true
@@ -71,10 +71,10 @@ state.register=false
              setoAuth:(state,action)=>{
 state.oauth=action.payload
             },
-             removeoAuth:(state,action)=>{
+             removeoAuth:(state)=>{
 state.oauth="none"
             },
-            changefirsttimelogin:(state,action)=>{
+            changefirsttimelogin:(state)=>{
 state.firsttimelogin=!state.firsttimelogin
             },
          
