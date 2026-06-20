@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 const features = [
-  { icon: "✍️", text: "Write & Publish" },
+  { icon: "✍️", text: "Write & Save" },
   { icon: "🖊️", text: "Edit Anytime" },
   { icon: "🗑️", text: "Delete Posts" },
   { icon: "🔒", text: "Secure Auth" },
@@ -74,7 +74,7 @@ export default function HeroSection() {
           }}>
             Your Voice
           </span>
-          <br />Heard by the World.
+          <br />Kept Just for You.
         </h1>
 
         <p
@@ -82,7 +82,7 @@ export default function HeroSection() {
           style={{ color: "rgba(120,30,70,0.7)" }}
         >
           Create an account, write beautiful posts, edit them anytime,
-          and share your ideas with the world — all in one place.
+          and keep your ideas safe — all in one private space.
           <span style={{ color: "#be3872", fontWeight: 600 }}> No limits. Just you and your words.</span>
         </p>
 

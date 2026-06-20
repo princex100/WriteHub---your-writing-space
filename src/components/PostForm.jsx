@@ -237,7 +237,7 @@ const ref=useRef()
                 type="submit"
                 className="w-full bg-linear-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 rounded-lg shadow-md hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
               >
-                🚀 Publish Post
+                🚀 Save Post
               </button>
             </div>
 
