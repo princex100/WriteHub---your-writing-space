@@ -175,7 +175,7 @@ class config{
         databaseId:conf.databaseID,
         tableId:conf.userTableId,
         queries:[
-          Query.equal("email",email)
+          Query.equal("$id",userId)
         ]
       })
 
