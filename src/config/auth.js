@@ -1,95 +1,43 @@
-// 🔹 Appwrite SDK imports
-import { Client, Account, ID } from "appwrite"
-
-// 🔹 Config
-import { conf } from "../conf"
-
-// 🔹 Custom backend service
-import { configService } from "./config"
-
-// 🔹 Redux (not used here ⚠️)
-
-class authService {
-
-  // 🔹 Class properties
-  client;
+import { Client, Account, ID } from "appwrite"import { conf } from "../conf"import { configService } from "./config"
+class authService {  client;
   account;
 
-  constructor() {
-
-    // 🔹 Initialize Appwrite client
-    this.client = new Client()
+  constructor() {    this.client = new Client()
       .setEndpoint(conf.apprwriteurl)
-      .setProject(conf.projectID)
+      .setProject(conf.projectID)    this.account = new Account(this.client);
+  }  async createAccount({ email, password, name, firsttimelogin }) {    const data = await this.account.create({
+      userId: ID.unique(),
+      email: email,
+      password: password,
+      name: name
+    });
 
-    // 🔹 Initialize Account service
-    this.account = new Account(this.client);
-  }
-
-  // 🔹 Create new account + auto login
-  async createAccount({ email, password, name, firsttimelogin }) {
-      // 🔹 Create user in Appwrite
-      const data = await this.account.create(
-        "unique()",
-        email,
-        password,
-        name
-      );
-
-      if (data) {
-
-      
-
-        // 🔹 Auto login after signup
-        await this.login({ email, password, firsttimelogin })
+    if (data) {      await this.login({ email, password, firsttimelogin })
 
 
-        return data;
-      }
-  }
+      return data;
+    }
+  }  async login({ email, password, firsttimelogin }) {
 
-  // 🔹 Login function (handles both normal + special cases)
-  async login({ email, password, firsttimelogin }) {
+    try {      if (firsttimelogin === false) {
 
-    try {
-
-    
-
-      // 🔹 Case: first time login = false → direct login
-      if (firsttimelogin === false) {
-
-        const session = await this.account.createEmailPasswordSession(
-          email,
-          password
-        )
+        const session = await this.account.createEmailPasswordSession({
+          email: email,
+          password: password
+        })
 
 
         return session;
-      }
-
-      // 🔹 Fetch user details from DB
-      const userdetails = await configService.getUserInfobyEmail(email)
-
-    
-      // 🔹 If user not found
-      if (userdetails.total === 0) {
+      }      const userdetails = await configService.getUserInfobyEmail(email)      if (userdetails.total === 0) {
         throw new Error("signUp first.")
-      }
-
-     
-
-      // 🔹 Check if account was created via OAuth
-      if (userdetails.rows[0].oauth === "oauth") {
+      }      if (userdetails.rows[0].oauth === "oauth") {
         throw new Error("this aacount was created using google or github.Try again.")
-      }
+      }      const session = await this.account.createEmailPasswordSession({
+        email: email,
+        password: password
+      })
 
-      // 🔹 Normal login
-      const session = await this.account.createEmailPasswordSession(
-        email,
-        password
-      )
 
-      
 
       return session;
 
@@ -98,10 +46,7 @@ class authService {
 
       throw new Error("signup");
     }
-  }
-
-  // 🔹 Logout user (delete all sessions)
-  async logout() {
+  }  async logout() {
     try {
       const res = await this.account.deleteSessions();
       return res;
@@ -110,16 +55,10 @@ class authService {
 
       throw new Error(err.message)
     }
+  }  async getAccount() {
+    return await this.account.get();
   }
 
-  // 🔹 Get current logged-in user
-  async getAccount() {
-      return await this.account.get();
-  }
 
-  
-}
-
-// 🔹 Export singleton instance
-const authservice = new authService();
+}const authservice = new authService();
 export { authservice };

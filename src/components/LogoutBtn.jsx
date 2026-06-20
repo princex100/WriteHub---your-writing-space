@@ -1,29 +1,8 @@
-// 🔹 React
-import React from 'react'
+import React from 'react'import { Link, useNavigate } from 'react-router-dom'import { authservice } from '../config/auth'import { useDispatch } from 'react-redux'
+import { logout } from '../store/authslice'import { showerr } from '../store/errorslice.js'
 
-// 🔹 Routing
-import { Link, useNavigate } from 'react-router-dom'
-
-// 🔹 Auth service
-import { authservice } from '../config/auth'
-
-// 🔹 Redux
-import { useDispatch } from 'react-redux'
-import { logout } from '../store/authslice'
-
-// 🔹 Error handling
-import { showerr } from '../store/errorslice.js'
-
-function LogoutBtn() {
-
-
-
-  // 🔹 Navigation + dispatch hooks
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  // 🔹 Logout handler
-  async function Logoutt() {
+function LogoutBtn() {  const navigate = useNavigate()
+  const dispatch = useDispatch()  async function Logoutt() {
     try {
       // Call logout API
       const remove = await authservice.logout()
@@ -39,15 +18,10 @@ function LogoutBtn() {
     }
   }
 
-  return (
-
-    // 🔹 Wrapper link (redirects to home)
-    <Link
+  return (    <Link
       to="/"
       className="inline-block"
-    >
-      {/* 🔹 Logout button */}
-      <button
+    >      <button
         onClick={() => Logoutt()}
         className="px-6 py-2 bg-red-500 text-white rounded-lg text-lg
                    font-medium shadow-md 

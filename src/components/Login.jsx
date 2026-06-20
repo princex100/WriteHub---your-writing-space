@@ -1,18 +1,5 @@
-// 🔹 React & Hooks
-import React from 'react'
-
-// 🔹 Form handling
-import { useForm } from 'react-hook-form'
-
-// 🔹 Custom Input component
-import Input from './Input'
-
-// 🔹 Services (auth + oauth)
-import { authservice } from '../config/auth'
-import { oAuthservice } from '../config/Oauth.config'
-
-// 🔹 Redux
-import { useDispatch } from 'react-redux'
+import React from 'react'import { useForm } from 'react-hook-form'import Input from './Input'import { authservice } from '../config/auth'
+import { oAuthservice } from '../config/Oauth.config'import { useDispatch } from 'react-redux'
 import {
   logout,
   removegithublogin,
@@ -21,29 +8,11 @@ import {
   userlogin,
   removegooglelogin,
   setoAuth
-} from '../store/authslice'
+} from '../store/authslice'import { useNavigate, Link } from 'react-router-dom'import gitlogo from "../assets/githubcat.svg"
+import googlelogo from "../assets/google.svg"import { showerr } from '../store/errorslice.js'
 
-// 🔹 Routing
-import { useNavigate, Link } from 'react-router-dom'
-
-// 🔹 Assets
-import gitlogo from "../assets/githubcat.svg"
-import googlelogo from "../assets/google.svg"
-
-// 🔹 Error handling
-import { showerr } from '../store/errorslice.js'
-
-function Login() {
-
-  // 🔹 Redux + Navigation hooks
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  // 🔹 React Hook Form setup
-  const { register, handleSubmit } = useForm()
-
-  // 🔹 Email/Password login handler
-  const submit = async (data) => {
+function Login() {  const dispatch = useDispatch()
+  const navigate = useNavigate()  const { register, handleSubmit } = useForm()  const submit = async (data) => {
     try {
       // Preparing login payload
       const obj = {
@@ -79,10 +48,7 @@ function Login() {
       dispatch(showerr(err.message))
       return
     }
-  }
-
-  // 🔹 Google OAuth login
-  const googleLogin = async () => {
+  }  const googleLogin = async () => {
     try {
       // Set redux flags for OAuth tracking
       dispatch(setgooglelogin())
@@ -97,10 +63,7 @@ function Login() {
       dispatch(logout())
       return
     }
-  }
-
-  // 🔹 GitHub OAuth login
-  const gitlogin = async () => {
+  }  const gitlogin = async () => {
     try {
       // Set redux flags for OAuth tracking
       dispatch(setgithublogin())
@@ -118,35 +81,23 @@ function Login() {
   }
 
   return (
-    <div className="flex items-center justify-center px-4 flex-col">
-
-      {/* 🔹 Login Form */}
-      <form
+    <div className="flex items-center justify-center px-4 flex-col">      <form
         autoComplete="off"
         onSubmit={handleSubmit(submit)}
         className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg space-y-6"
-      >
-
-        {/* 🔹 Header Section */}
-        <div className="text-center space-y-2">
+      >        <div className="text-center space-y-2">
           <h1 className="text-2xl font-bold text-gray-800">
             Welcome Back 👋
           </h1>
           <p className="text-sm text-gray-500">
             Don’t have an account?
-          </p>
-
-          {/* 🔹 Navigate to Signup */}
-          <Link
+          </p>          <Link
             to="/SignUp"
             className="text-blue-600 font-medium hover:underline"
           >
             Sign Up
           </Link>
-        </div>
-
-        {/* 🔹 Email Input */}
-        <Input
+        </div>        <Input
           type='text'
           autoComplete="off"
           placeholder="Enter email"
@@ -157,10 +108,7 @@ function Login() {
             required: true,
             value: ""
           })}
-        />
-
-        {/* 🔹 Password Input */}
-        <Input
+        />        <Input
           type='password'
           placeholder="Enter password"
           className="w-full px-4 py-2 border border-gray-300 rounded-lg 
@@ -169,10 +117,7 @@ function Login() {
           {...register("password", {
             required: true
           })}
-        />
-
-        {/* 🔹 Submit Button */}
-        <button
+        />        <button
           type='submit'
           className="w-full bg-blue-600 text-white py-2 rounded-lg 
                      hover:bg-blue-700 active:scale-95 
@@ -181,15 +126,9 @@ function Login() {
           Login
         </button>
 
-      </form>
+      </form>      <div className="w-full max-w-md mb-10 mt-4">
 
-      {/* 🔹 OAuth Buttons Section */}
-      <div className="w-full max-w-md mb-10 mt-4">
-
-        <div className="flex flex-col gap-3 w-full">
-
-          {/* 🔹 GitHub Login */}
-          <button
+        <div className="flex flex-col gap-3 w-full">          <button
             onClick={gitlogin}
             className="flex items-center justify-center gap-3 w-full px-6 py-3 rounded-lg border border-gray-200 hover:border-gray-400 hover:bg-gray-50 active:scale-95 transition-all duration-200 shadow-sm"
           >
@@ -197,10 +136,7 @@ function Login() {
             <span className="text-sm font-medium text-gray-700">
               login with GitHub
             </span>
-          </button>
-
-          {/* 🔹 Google Login */}
-          <button
+          </button>          <button
             onClick={googleLogin}
             className="flex items-center justify-center gap-3 w-full px-6 py-3 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 active:scale-95 transition-all duration-200 shadow-sm"
           >
