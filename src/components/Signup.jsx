@@ -9,6 +9,7 @@ import gitlogo from "../assets/githubcat.svg"
 import googlelogo from "../assets/google.svg"
 import { oAuthservice } from '../config/Oauth.config.js';
 import { configService } from '../config/config.js';
+import { showerr } from '../store/errorslice';
 function Signup() {
   const {register,handleSubmit}=useForm();
   const navigate=useNavigate();
@@ -41,7 +42,8 @@ function Signup() {
                 return
               }
           }
-          catch {
+          catch (error) {
+            dispatch(showerr(error?.message || "Signup failed. Try again."))
             dispatch(logout())
             return
           }
@@ -118,7 +120,11 @@ function Signup() {
                    focus:outline-none focus:ring-2 focus:ring-blue-500 
                    transition duration-200"
         {...register("password",{
-          required:true
+          required:true,
+          minLength: {
+            value: 8,
+            message: "Password must be at least 8 characters"
+          }
         })}
       />
 

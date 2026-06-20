@@ -29,12 +29,12 @@ class authService {
   // 🔹 Create new account + auto login
   async createAccount({ email, password, name, firsttimelogin }) {
       // 🔹 Create user in Appwrite
-      const data = await this.account.create({
-        userId: ID.unique(),
-        email: email,
-        password: password,
-        name: name
-      });
+      const data = await this.account.create(
+        ID.unique(),
+        email,
+        password,
+        name
+      );
 
       if (data) {
 
@@ -58,10 +58,10 @@ class authService {
       // 🔹 Case: first time login = false → direct login
       if (firsttimelogin === false) {
 
-        const session = await this.account.createEmailPasswordSession({
-          email: email,
-          password: password
-        })
+        const session = await this.account.createEmailPasswordSession(
+          email,
+          password
+        )
 
 
         return session;
@@ -84,10 +84,10 @@ class authService {
       }
 
       // 🔹 Normal login
-      const session = await this.account.createEmailPasswordSession({
-        email: email,
-        password: password
-      })
+      const session = await this.account.createEmailPasswordSession(
+        email,
+        password
+      )
 
       
 
