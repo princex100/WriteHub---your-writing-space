@@ -13,6 +13,7 @@ function Button({
      <button
       type={type}
       style={{
+        
         background: "rgba(255, 255, 255, 0.3)",
         border: "1px solid rgba(255, 255, 255, 0.5)",
         color: "#8b1a4a", 
