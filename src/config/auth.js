@@ -30,7 +30,7 @@ class authService {
   async createAccount({ email, password, name, firsttimelogin }) {
       // 🔹 Create user in Appwrite
       const data = await this.account.create(
-        ID.unique(),
+        "unique()",
         email,
         password,
         name
